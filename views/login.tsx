@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthData } from '~routes';
 
 type Props = {}
@@ -58,7 +59,9 @@ const LoginPage = (props: Props) => {
       <div id="create account" className="mb-4">
         {/* Content for create account */}
       </div>
-      <a href="signup.html" className="text-blue-500">Register for Free!</a>
+      <Link to={'/signup'}>
+      <div className="text-blue-500">Register for Free!</div>
+      </Link>
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
     </div>
     

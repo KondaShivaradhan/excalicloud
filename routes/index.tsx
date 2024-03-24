@@ -7,6 +7,7 @@ import { devURL, type ContextProps, type ResponseData } from "~misc/Constants";
 import AddNew from "~views/AddNew";
 
 import './temp.css'
+import Signuppage from "~views/signup";
 
 const Routing = () => {
 
@@ -21,7 +22,19 @@ const Routing = () => {
 
 
 }
+const BFLoginRouting = () => {
 
+
+  return (
+
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/signup" element={<Signuppage />} />
+    </Routes>
+  )
+
+
+}
 export const AuthContext = createContext<ContextProps | null>(null);
 export const AuthData = () => useContext(AuthContext);
 export const AuthWrapper = () => {
@@ -143,18 +156,22 @@ export const AuthWrapper = () => {
   useEffect(() => {
     async function init() {
       try {
+        console.log("this is the INIT ");
         const email = localStorage.getItem('loggedInEmail')
-        if (email.includes('@')) {
+        if (email && email.includes('@')) {
+        console.log("EMAIL found ");
           await fetchAll(email).then(() => {
 
           })
-
         }
         else {
+        console.log("EMAIL Not found ");
+
           setIsLoading(false)
           setLogedin(false)
         }
       } catch (error) {
+        console.log("Error at INIT ",error);
 
       }
     }
@@ -173,7 +190,7 @@ export const AuthWrapper = () => {
         (logedIn) ? <>
           <Routing />
         </> : <>
-          <LoginPage />
+          <BFLoginRouting />
         </>
       )}
 

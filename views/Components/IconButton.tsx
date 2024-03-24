@@ -31,9 +31,9 @@ const IconButton = (props: Props) => {
         buttonStyle = `w-fit ${((props.text && props.icon) ? 'pr-2 pl-1 py-1' : 'p-1')} flex flex-row flex-nowrap text-center items-center bg-transparent text-red-900 border border-red-400 rounded-md hover:bg-red-600 hover:text-white focus:outline-none focus:bg-red-600`;
 
     else if (props.type.match('green'))
-        buttonStyle = `w-fit flex flex-row flex-nowrap text-center items-center bg-transparent text-red-900 border border-red-400 rounded-md hover:bg-red-600 hover:text-white focus:outline-none focus:bg-red-600`;
+        buttonStyle = `w-fit px-2 py-1 flex flex-row flex-nowrap text-center items-center bg-transparent text-green-900 border border-green-400 rounded-md hover:bg-green-600 hover:text-white focus:outline-none focus:bg-red-600`;
     else if (props.type.match('blue'))
-        buttonStyle = "w-fit px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        buttonStyle = "w-fit px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
     return (
         <button onClick={handleClick} type="button" className={buttonStyle}>
             {props.icon}

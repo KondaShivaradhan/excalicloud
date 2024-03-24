@@ -20,9 +20,11 @@ export interface Board {
     canvasData: any;
 }
 const url = 'https:/node.blazingbane.com/excali/'
+// const url = 'http://172.27.239.102:3003/excali/'
 export const devURL ={
    login: url+'login',
    update:url+'update',
+   signup:url+'signup',
    save:url+'save',
    all:url+'all'
 }
