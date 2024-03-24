@@ -5,9 +5,7 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 window.addEventListener("load", () => {
-  console.log(
-    "Excali Cloud is injected!"
-  )
+  console.log("Excali Cloud is injected!")
  
   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     // Set LocalStorage

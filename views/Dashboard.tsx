@@ -37,7 +37,9 @@ const Dashboard = (props: Props) => {
   }
   return (
     <div className='p-4 flex flex-col justify-evenly w-52 overflow-hidden gap-2 items-center '>
-
+      <div className='overflow-auto'>
+        <p className='text-sm'><span className='font-bold'>Welcome</span> {(user.data.email)}</p>
+      </div>
       {/* exsisting data */}
       {user.data.data.length > 0 ?
         <div className='flex flex-col gap-4 p-2 m-2'>

@@ -34,9 +34,16 @@ const AddNew = (props: Props) => {
                         navigate('/')
                     })
                 else
+                try {
+                    
+              
                     await context.updateRecord(context.user.data.email, selectedOption, JSON.stringify(response)).then(() => {
                         navigate('/')
                     })
+                } catch (error) {
+                    console.error("ERROR at ADDNEW updtate", error);
+                    
+                }
             });
         });
     }
@@ -58,7 +65,6 @@ const AddNew = (props: Props) => {
         console.log(selectedOption);
 
         if (selectedOption) {
-            console.log(selectedOption);
             getLocalStorage('update');
         }
         else {
@@ -90,7 +96,7 @@ const AddNew = (props: Props) => {
                 >
                     <option disabled selected value={''}> -- select an option -- </option>
                     {context.user.data.data.map((Canvas, i) => (
-                        <option value={Canvas.name}>{Canvas.name}</option>
+                        <option key={i} value={Canvas.name}>{Canvas.name}</option>
                     ))}
                 </select>
                 <IconButton onClick={() => { updateR() }} type={buttonTypes.blue} text='Update' />

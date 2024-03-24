@@ -3,7 +3,7 @@ import { Home } from "./home";
 import LoginPage from "../views/login";
 import { createContext, useContext, useEffect, useState } from 'react';
 import Dashboard from "~views/Dashboard";
-import type { ContextProps, ResponseData } from "~misc/Constants";
+import { devURL, type ContextProps, type ResponseData } from "~misc/Constants";
 import AddNew from "~views/AddNew";
 
 import './temp.css'
@@ -24,7 +24,6 @@ const Routing = () => {
 
 export const AuthContext = createContext<ContextProps | null>(null);
 export const AuthData = () => useContext(AuthContext);
-
 export const AuthWrapper = () => {
   const [logedIn, setLogedin] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +33,7 @@ export const AuthWrapper = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch('http://172.27.239.102:3003/excali/login', {
+      const response = await fetch(devURL.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +60,7 @@ export const AuthWrapper = () => {
   };
   const saveRecord = async (email: string, name: string, canvasdata: string) => {
     try {
-      const response = await fetch('http://172.27.239.102:3003/excali/save', {
+      const response = await fetch(devURL.save, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +80,7 @@ export const AuthWrapper = () => {
   const updateRecord = async (email: string, name: string, canvasdata: string) => {
     if (name)
       try {
-        const response = await fetch('http://172.27.239.102:3003/excali/update', {
+        const response = await fetch(devURL.update, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -89,7 +88,9 @@ export const AuthWrapper = () => {
           body: JSON.stringify({ email, name, canvasdata }),
         });
         if (response.ok) {
+          console.log("CAME HERE in updatecl");
 
+          console.log(response.json());
           fetchAll(email)
         } else {
           const data = await response.json();
@@ -97,17 +98,18 @@ export const AuthWrapper = () => {
       } catch (error) {
         console.error('Error:', error);
       }
-      else{
-        console.log("Name is empty",name);
-      }
+    else {
+      console.log("Name is empty", name);
+    }
   };
 
   const fetchAll = async (email: string) => {
     // all\
     setIsLoading(true)
+    console.log(devURL.all);
 
     try {
-      const response = await fetch('http://172.27.239.102:3003/excali/all', {
+      const response = await fetch(devURL.all, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
