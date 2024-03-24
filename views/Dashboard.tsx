@@ -1,9 +1,9 @@
 import React, { } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthData } from '~routes'
-import { Trash } from "phosphor-react";
 import IconButton, { buttonIcons, buttonTypes } from './Components/IconButton';
 import ErrBadge from './Components/ErrBadge';
+import Badge, { BadgeIcons } from './Components/Badge';
 type Props = {
 
 }
@@ -38,11 +38,12 @@ const Dashboard = (props: Props) => {
   return (
     <div className='p-4 flex flex-col justify-evenly w-52 overflow-hidden gap-2 items-center '>
       <div className='overflow-auto'>
-        <p className='text-sm'><span className='font-bold'>Welcome</span> {(user.data.email)}</p>
+        <p className=''><span className='font-bold'>Welcome</span> {(user.data.email)}</p>
+        <Badge text={user.data.ispaid?'Paid':'Freemium'} icon={user.data.ispaid?BadgeIcons.party:BadgeIcons.free}/>
       </div>
       {/* exsisting data */}
       {user.data.data.length > 0 ?
-        <div className='flex flex-col gap-4 p-2 m-2'>
+        <div className='flex flex-col flex-wrap gap-2 p-2 m-2'>
           
           <h4 className=" font-bold text-gray-800 ">Load any existing canvas</h4>
           {user.data.data.map((Canvas, index) => (

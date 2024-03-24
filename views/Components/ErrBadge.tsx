@@ -1,4 +1,4 @@
-import { Warning } from 'phosphor-react';
+import { Warning } from '@phosphor-icons/react';
 import * as React from 'react';
 
 type Props = {

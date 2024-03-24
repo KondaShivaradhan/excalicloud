@@ -1,10 +1,10 @@
-import { CaretLeft } from 'phosphor-react';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { checkName } from '~misc/Constants';
 import { AuthData } from '~routes';
 import IconButton, { buttonIcons, buttonTypes } from './Components/IconButton';
 import { log } from 'console';
+import ErrBadge from './Components/ErrBadge';
 
 type Props = {}
 
@@ -34,16 +34,16 @@ const AddNew = (props: Props) => {
                         navigate('/')
                     })
                 else
-                try {
-                    
-              
-                    await context.updateRecord(context.user.data.email, selectedOption, JSON.stringify(response)).then(() => {
-                        navigate('/')
-                    })
-                } catch (error) {
-                    console.error("ERROR at ADDNEW updtate", error);
-                    
-                }
+                    try {
+
+
+                        await context.updateRecord(context.user.data.email, selectedOption, JSON.stringify(response)).then(() => {
+                            navigate('/')
+                        })
+                    } catch (error) {
+                        console.error("ERROR at ADDNEW updtate", error);
+
+                    }
             });
         });
     }
@@ -80,45 +80,51 @@ const AddNew = (props: Props) => {
         setSelectedOption(event.target.value);
     };
     return (
-        <>
-
-            <div className='flex flex-col gap-1 items-center '>
-                <label htmlFor="select" className="block text-gray-700 text-sm font-bold mb-2">
-                    Select Canvas: {selectedOption}
-                </label>
-                <select
-                    id="select"
-                    className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    value={selectedOption}
-                    onChange={SehandleChange}
-                    defaultChecked={true}
-                    required
-                >
-                    <option disabled selected value={''}> -- select an option -- </option>
-                    {context.user.data.data.map((Canvas, i) => (
-                        <option key={i} value={Canvas.name}>{Canvas.name}</option>
-                    ))}
-                </select>
-                <IconButton onClick={() => { updateR() }} type={buttonTypes.blue} text='Update' />
-            </div>
-            <div className="p-4 w-52 flex flex-col flex-nowrap gap-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Name
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 w-full"
-                    placeholder="Enter name"
-                    value={name}
-                    onChange={handleChange}
-                />
-                <button type="submit" onClick={saveRecord} className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
-                <Link to={'/'}>
-                    <IconButton text='back' icon={buttonIcons.back} type={buttonTypes.red} />
-                </Link>
-            </div>
-        </>
+        <div className='p-4 w-52 flex flex-col flex-nowrap gap-4'>
+            {
+                context.user.data.data.length > 0 &&
+                <div className='flex flex-col gap-1 items-center'>
+                    <label htmlFor="select" className="block text-gray-700 text-sm font-bold mb-2">
+                        {selectedOption ? 'Updating '+selectedOption:'Select canvas'}
+                    </label>
+                    <select
+                        id="select"
+                        className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        value={selectedOption}
+                        onChange={SehandleChange}
+                        defaultChecked={true}
+                        required
+                    >
+                        <option disabled selected value={''}> -- select an option -- </option>
+                        {context.user.data.data.map((Canvas, i) => (
+                            <option key={i} value={Canvas.name}>{Canvas.name}</option>
+                        ))}
+                    </select>
+                    <IconButton onClick={() => { updateR() }} type={buttonTypes.blue} text='Update' />
+                </div>
+            }
+            {
+                context.user.data.data.length < 5 ?
+                    <div className="p-4 flex flex-col flex-nowrap gap-3">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                            New Record
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 w-full"
+                            placeholder="Enter name"
+                            value={name}
+                            onChange={handleChange}
+                            required
+                        />
+                        <button type="submit" onClick={saveRecord} className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
+                    </div>
+                    :
+                        <ErrBadge  text='Free users can store upto 5 records'/>
+            }
+            <IconButton onClick={()=>{navigate('/')}} type={buttonTypes.red} icon={buttonIcons.back} text='back'/>
+        </div>
     )
 }
 

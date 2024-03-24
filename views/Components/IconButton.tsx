@@ -1,4 +1,4 @@
-import { CaretLeft, Trash } from 'phosphor-react'
+import { CaretLeft, Trash } from '@phosphor-icons/react'
 import React, { type ReactNode } from 'react'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
     onClick?: () => void;
 
 }
-const buttonSize = 16
+export const buttonSize = 16
 export const buttonTypes = { red: 'red', green: 'green', blue: 'blue' };
 export const buttonIcons = {
     back: <CaretLeft size={buttonSize} />,
