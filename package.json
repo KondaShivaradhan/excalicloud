@@ -1,7 +1,7 @@
 {
   "name": "excali-cloud",
   "displayName": "Excali cloud",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cloud sync for excalicloud data",
   "author": "blazingbane",
   "scripts": {
