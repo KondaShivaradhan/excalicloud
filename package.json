@@ -36,7 +36,6 @@
       "https://excalidraw.com/*"
     ],
     "permissions": [
-      "storage",
       "activeTab"
     ]
   }
