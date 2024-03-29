@@ -15,7 +15,7 @@ const ErrBadge: React.FC<Props> = (props) => {
         }
     };
     return (
-        <div  onClick={handleClick} className='p-2 bg-yellow-100 border rounded-lg flex items-center gap-1 border-yellow-500 max-w-fit'>
+        <div  onClick={handleClick} className='p-1 bg-yellow-100 border rounded-lg flex items-center gap-1 border-yellow-500 max-w-fit'>
             <Warning size={16} />
             <span>
                 {props.text}

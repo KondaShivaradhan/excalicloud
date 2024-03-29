@@ -85,11 +85,11 @@ const AddNew = (props: Props) => {
                 context.user.data.data.length > 0 &&
                 <div className='flex flex-col gap-1 items-center'>
                     <label htmlFor="select" className="block text-gray-700 text-sm font-bold mb-2">
-                        {selectedOption ? 'Updating '+selectedOption:'Select canvas'}
+                        {selectedOption ? 'Updating '+selectedOption:'Select canvas to update'}
                     </label>
                     <select
                         id="select"
-                        className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 p-2 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         value={selectedOption}
                         onChange={SehandleChange}
                         defaultChecked={true}
@@ -100,19 +100,20 @@ const AddNew = (props: Props) => {
                             <option key={i} value={Canvas.name}>{Canvas.name}</option>
                         ))}
                     </select>
+                    
                     <IconButton onClick={() => { updateR() }} type={buttonTypes.blue} text='Update' />
                 </div>
             }
             {
                 context.user.data.data.length < 5 ?
-                    <div className="p-4 flex flex-col flex-nowrap gap-3">
+                    <div className=" flex flex-col flex-nowrap gap-3">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                             New Record
                         </label>
                         <input
                             type="text"
                             id="name"
-                            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 w-full"
+                            className="mt-1 p-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 w-full"
                             placeholder="Enter name"
                             value={name}
                             onChange={handleChange}

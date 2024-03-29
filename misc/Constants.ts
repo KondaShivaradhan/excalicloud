@@ -1,6 +1,6 @@
 export interface ContextProps {
     user: ResponseData
-    login: (email, password) => Promise<ResponseData>
+    login: (email, password) => Promise<string>
     logout: any
     fetchAll: (email) => Promise<ResponseData>
     saveRecord: (email, canvasdata, name) => Promise<void>
@@ -23,6 +23,7 @@ const url = 'https:/node.blazingbane.com/excali/'
 // const url = 'http://172.27.239.102:3003/excali/'
 export const devURL ={
    login: url+'login',
+   delete: url,
    update:url+'update',
    signup:url+'signup',
    save:url+'save',

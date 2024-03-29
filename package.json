@@ -1,8 +1,8 @@
 {
   "name": "excali-cloud",
   "displayName": "Excali cloud",
-  "version": "0.0.2",
-  "description": "Cloud sync for excalicloud data",
+  "version": "0.0.3",
+  "description": "A free extension to enable cloud sync for the excalidraw",
   "author": "blazingbane",
   "scripts": {
     "dev": "plasmo dev",
@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.15",
-    "@plasmohq/storage": "^1.9.3",
     "formik": "^2.4.5",
     "plasmo": "0.85.2",
     "react": "18.2.0",

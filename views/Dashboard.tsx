@@ -4,6 +4,7 @@ import { AuthData } from '~routes'
 import IconButton, { buttonIcons, buttonTypes } from './Components/IconButton';
 import ErrBadge from './Components/ErrBadge';
 import Badge, { BadgeIcons } from './Components/Badge';
+import { devURL } from '~misc/Constants';
 type Props = {
 
 }
@@ -14,7 +15,7 @@ const Dashboard = (props: Props) => {
   const navigate = useNavigate();
   const deleteThis = async (name: string) => {
     try {
-      const response = await fetch('http://172.27.239.102:3003/excali/', {
+      const response = await fetch(devURL.delete, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +30,6 @@ const Dashboard = (props: Props) => {
         // Handle failed login
         const data = await response.json();
         console.log("Delete failed");
-
       }
     } catch (error) {
       console.error('Error:', error);
@@ -43,7 +43,7 @@ const Dashboard = (props: Props) => {
       </div>
       {/* exsisting data */}
       {user.data.data.length > 0 ?
-        <div className='flex flex-col flex-wrap gap-2 p-2 m-2'>
+        <div className='flex flex-row flex-wrap gap-2'>
           
           <h4 className=" font-bold text-gray-800 ">Load any existing canvas</h4>
           {user.data.data.map((Canvas, index) => (
@@ -51,6 +51,7 @@ const Dashboard = (props: Props) => {
               <button
                 type="button"
                 onClick={() => {
+
                   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
                     chrome.tabs.sendMessage(tabs[0].id, { action: 'triggerContentScript', parameter: Canvas.canvasData }, function (response) {
                       // Handle response from content script if needed
@@ -59,11 +60,11 @@ const Dashboard = (props: Props) => {
                     });
                   });
                 }}
-                className="flex-grow-0 flex-shrink-0 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                className="flex-grow-0 flex-shrink-0 px-2 py-1 text-blue-600 hover:text-white border border-blue-600 border-2xl rounded-md hover:bg-blue-600 "
               >
                 {Canvas.name}
               </button>
-              <IconButton onClick={() => { deleteThis(Canvas.name) }} icon={buttonIcons.trash} type={buttonTypes.red} />
+              <IconButton onClick={() => { confirm(`Do you want to delete ${Canvas.name}?`)&& deleteThis(Canvas.name) }} icon={buttonIcons.trash} type={buttonTypes.red} />
 
             </div>
 

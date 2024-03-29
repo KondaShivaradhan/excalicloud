@@ -40,6 +40,7 @@ export const AuthData = () => useContext(AuthContext);
 export const AuthWrapper = () => {
   const [logedIn, setLogedin] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState(true);
+  const [errs, setErrs]  =useState<string>('')
   const [user, setUser] = useState<ResponseData>()
   const records = ""
   console.log("this is the Auth ");
@@ -56,19 +57,24 @@ export const AuthWrapper = () => {
       if (response.ok) {
         // Successful login logic here
 
-        console.log('====================================');
         const responseData: ResponseData = await response.json();
-        console.log(responseData);
+        console.log("THIS IS RESPONCE",responseData);
         setLogedin(true)
         setUser(responseData)
         localStorage.setItem('loggedInEmail', email);
-        return responseData
+       
       } else {
         // Handle failed login
-        const data = await response.json();
+        if (response.status === 401) {
+          return 'Incorrect details'; // Unauthorized
+        } else if (response.status === 500) {
+          return 'Server error. Please try again later.'; // Server error
+        } else {
+          return 'Unknown error occurred.'; // Other errors
+        }
       }
     } catch (error) {
-      console.error('Error:', error);
+      return error
     }
   };
   const saveRecord = async (email: string, name: string, canvasdata: string) => {
@@ -117,7 +123,6 @@ export const AuthWrapper = () => {
   };
 
   const fetchAll = async (email: string) => {
-    // all\
     setIsLoading(true)
     console.log(devURL.all);
 
@@ -172,18 +177,16 @@ export const AuthWrapper = () => {
         }
       } catch (error) {
         console.log("Error at INIT ",error);
-
       }
     }
     init()
   }, [])
   const Spinner = () => <div className="loader"></div>;
   return (
-
-
     <AuthContext.Provider value={{ fetchAll, saveRecord, user, login, logout, updateRecord }}>
       {isLoading ? (
-        <div className="w-52 flex items-center justify-center">
+        <div className="w-52 h-64 flex flex-col items-center justify-center">
+          <p className="text-base">Hold on...</p>
           <Spinner />
         </div>
       ) : (
